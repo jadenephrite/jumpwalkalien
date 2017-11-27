@@ -1,0 +1,265 @@
+<html>
+
+<head>
+
+  <script>
+
+    
+onload=function(){
+
+var myTimer = null;
+
+// step = ending number of the images
+
+var step = 0;
+
+var running = false;
+
+var height = 0;
+
+var width = window.innerWidth;
+
+var x = 1;
+
+var y = 1;
+
+var img = document.getElementById('x')
+
+var alien = 108;
+
+var jumpX = [];
+
+console.log(jumpX);
+
+
+function move(){
+
+console.log(width, "width");
+
+  alien += x;
+
+  
+  if(alien >= width){
+
+    x = -x
+
+    
+  }
+
+     
+
+    if(alien <= 108){
+
+        x = -x
+
+        alien = 108;
+
+      
+    }
+
+ if( (width - alien) <= 200 ){
+
+        jumpbtn.disabled = true;
+
+      }else{
+
+        jumpbtn.disabled = false;
+
+      } 
+
+   step++;
+
+    if(step >= 30){
+
+        step = 0
+
+    }
+
+    console.log(alien, "alient pos");
+
+    if(x >= 0){
+
+    img.style.left = parseInt(img.style.left) + x + 'px'
+
+    img.src='images/alien/alienrwalk' + step + '.gif'
+
+}else{
+
+
+
+       img.style.left = parseInt(img.style.left) + x + 'px'
+
+    img.src='images/alien/alienlwalk' + step + '.gif'
+
+}
+
+}//end of function move
+
+
+function moveNoFeet(){
+
+    alien += x;
+
+    img.style.left = parseInt(img.style.left) + x + 'px'
+
+    jumpX.push(x);
+
+  
+
+}
+
+
+function jumping(){
+
+    var jumpbtn = document.getElementById('jumpbtn');
+
+    var im = document.getElementById('x');
+
+
+            im.style.top = parseInt(im.style.top) - y + 'px';
+
+
+
+
+
+    }
+
+    function dropping(){
+
+        var im = document.getElementById('x');
+
+
+
+        im.style.top = parseInt(im.style.top) + y + 'px';
+
+    }
+
+
+
+    var im = document.getElementById('x');
+
+
+    jumpbtn.onclick=function(){
+
+      this.disabled = true;
+
+      setTimeout(function(){
+
+        jumpbtn.disabled = false;
+
+      },2000);
+
+    
+        if(height == 0){
+
+           clearInterval(myTimer);
+
+            myTimer = null;
+
+            
+
+          heightTimer = setInterval(function(){
+
+              height++
+
+               console.log(height);
+
+            },100);
+
+
+
+           jumpTimer = setInterval(jumping, 9);
+
+           noFeetTimer = setInterval(moveNoFeet, 9);
+
+            setTimeout(function(){
+
+                clearInterval(jumpTimer);
+
+              droptimer = setInterval(dropping, 9);
+
+            },700);
+
+            
+            setTimeout(function(){
+
+              clearInterval(droptimer);
+
+              clearInterval(heightTimer);
+
+              clearInterval(noFeetTimer);
+
+
+              height = 0;
+
+        if(running){
+
+            
+            myTimer = setInterval(move, 17)
+
+        }else{
+
+            
+            clearInterval(myTimer)
+
+            myTimer = null
+
+        }
+
+            },1400);
+
+            
+
+        }
+
+
+
+    }//end of jumpbtn click function
+
+
+
+    im.onclick = function moveAnimation(){
+
+
+
+            if(myTimer == null){
+
+            
+            myTimer = setInterval(move, 17);
+
+            
+            running = true;
+
+        }else{
+
+            
+            clearInterval(myTimer)
+
+            myTimer = null
+
+            
+            running = false;
+
+        }
+
+    }
+
+}
+
+
+</script>
+
+</head>
+
+<body>
+
+    <button id="jumpbtn">Jump</button>
+
+
+    <img src="images/alien/alienrwalk11.gif" id="x"
+
+         style="position:absolute; left:12px; top:300px">
+
+</body>
+
+</html>
